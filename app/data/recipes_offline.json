@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Tomato Basil Pasta",
+    "ingredients": [
+      "tomato",
+      "basil",
+      "pasta",
+      "garlic",
+      "olive oil"
+    ],
+    "url": "",
+    "image": ""
+  },
+  {
+    "title": "Omelette au Fromage",
+    "ingredients": [
+      "egg",
+      "cheese",
+      "butter",
+      "salt"
+    ],
+    "url": "",
+    "image": ""
+  },
+  {
+    "title": "Chicken Rice Bowl",
+    "ingredients": [
+      "chicken",
+      "rice",
+      "soy sauce",
+      "garlic"
+    ],
+    "url": "",
+    "image": ""
+  },
+  {
+    "title": "Avocado Toast",
+    "ingredients": [
+      "avocado",
+      "bread",
+      "salt",
+      "olive oil"
+    ],
+    "url": "",
+    "image": ""
+  },
+  {
+    "title": "Tuna Salad",
+    "ingredients": [
+      "tuna",
+      "lettuce",
+      "lemon",
+      "olive oil"
+    ],
+    "url": "",
+    "image": ""
+  }
+]

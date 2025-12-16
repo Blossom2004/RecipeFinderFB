@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Results • RecipeFinder</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div>
+        <h1>Results</h1>
+        <p class="sub">Detected ingredients and generated recipes</p>
+      </div>
+      <div class="actions">
+        <a class="btn ghost" href="/">New Upload</a>
+        <a class="btn ghost" href="/history">History</a>
+      </div>
+    </header>
+
+    {% if error %}
+      <div class="alert">{{ error }}</div>
+    {% endif %}
+
+    {% if run %}
+    <section class="grid">
+      <div class="card">
+        <h2 class="h2">Uploaded Image</h2>
+        <div class="imgwrap">
+          <img src="{{ run.imageUrl }}" alt="uploaded" />
+        </div>
+        <div class="meta">
+          <div><span class="k">Mode</span> <span class="v">{{ run.recipeMode }}</span></div>
+          <div><span class="k">Run</span> <span class="v">{{ run.id }}</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="h2">Ingredients</h2>
+        {% if run.ingredients and run.ingredients|length > 0 %}
+          <div class="chips">
+            {% for ing in run.ingredients %}
+              <span class="chip">{{ ing }}</span>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="muted">No ingredients detected above threshold.</p>
+        {% endif %}
+
+        <h3 class="h3">Confidence</h3>
+        {% if run.predictions and run.predictions|length > 0 %}
+          <div class="preds">
+            {% for p in run.predictions[:10] %}
+              <div class="pred">
+                <span class="pred-tag">{{ p.tag }}</span>
+                <span class="pred-bar">
+                  <span class="pred-fill" style="width: {{ (p.p * 100) | round(0) }}%"></span>
+                </span>
+                <span class="pred-p">{{ (p.p * 100) | round(0) }}%</span>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p class="muted">Custom Vision not configured or returned no predictions.</p>
+        {% endif %}
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="h2">Recipes</h2>
+      {% if run.recipes and run.recipes|length > 0 %}
+        <div class="recipes">
+          {% for r in run.recipes %}
+            <article class="recipe">
+              <div class="recipe-head">
+                <div>
+                  <div class="recipe-title">{{ r.title }}</div>
+                  <div class="recipe-sub">
+                    <span class="badge">{{ r.source }}</span>
+                    <span class="badge">score {{ (r.score * 100) | round(0) }}%</span>
+                  </div>
+                </div>
+                {% if r.url %}
+                  <a class="btn sm ghost" href="{{ r.url }}" target="_blank" rel="noreferrer">Open</a>
+                {% endif %}
+              </div>
+
+              <div class="recipe-body">
+                <div>
+                  <div class="mini">Used</div>
+                  <div class="chips">
+                    {% for x in r.usedIngredients %}
+                      <span class="chip ok">{{ x }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div>
+                  <div class="mini">Missing</div>
+                  <div class="chips">
+                    {% for x in r.missedIngredients %}
+                      <span class="chip warn">{{ x }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+
+              {% if r.image %}
+                <div class="thumb"><img src="{{ r.image }}" alt="recipe image" /></div>
+              {% endif %}
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="muted">No recipes found. Try another image or add Spoonacular API key.</p>
+      {% endif %}
+    </section>
+    {% endif %}
+
+    <footer class="footer"><span>RecipeFinder • Azure Cloud Project</span></footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>History • RecipeFinder</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div>
+        <h1>History</h1>
+        <p class="sub">Your last runs saved in Cosmos DB</p>
+      </div>
+      <a class="btn ghost" href="/">New Upload</a>
+    </header>
+
+    <section class="card">
+      {% if items and items|length > 0 %}
+        <div class="history">
+          {% for it in items %}
+            <div class="history-item">
+              <div class="history-left">
+                <div class="history-title">{{ it.id }}</div>
+                <div class="history-sub">
+                  <span class="badge">{{ it.recipeMode }}</span>
+                  <span class="badge">{{ it.createdAt }}</span>
+                </div>
+                <div class="chips">
+                  {% for ing in it.ingredients[:8] %}
+                    <span class="chip">{{ ing }}</span>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="history-right">
+                {% if it.imageUrl %}
+                  <a class="thumb sm" href="{{ it.imageUrl }}" target="_blank" rel="noreferrer">
+                    <img src="{{ it.imageUrl }}" alt="uploaded" />
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="muted">No history yet (Cosmos DB not configured or no runs stored).</p>
+      {% endif %}
+    </section>
+
+    <footer class="footer"><span>Powered by Cosmos DB</span></footer>
+  </div>
+</body>
+</html>

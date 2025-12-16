@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RecipeFinder</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <div>
+        <h1>RecipeFinder</h1>
+        <p class="sub">Upload an ingredient photo → detect ingredients → generate recipes</p>
+      </div>
+      <a class="btn ghost" href="/history">History</a>
+    </header>
+
+    <section class="card">
+      <form class="upload" action="/analyze" method="post" enctype="multipart/form-data">
+        <div class="dropzone" id="dropzone">
+          <input type="file" name="file" id="file" accept="image/*" required />
+          <div class="dz-ui">
+            <div class="dz-title">Drop an image here</div>
+            <div class="dz-sub">or click to select (jpg/png)</div>
+          </div>
+          <img id="preview" alt="" />
+        </div>
+
+        <div class="row">
+          <button class="btn" type="submit">Analyze & Generate</button>
+          <div class="hint">Best results: clear photo, good lighting, ingredients visible.</div>
+        </div>
+      </form>
+    </section>
+
+    <footer class="footer">
+      <span>Azure: App Service (Container) • Blob • Custom Vision • Cosmos DB • Docker</span>
+    </footer>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
